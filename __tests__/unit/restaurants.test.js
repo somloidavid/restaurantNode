@@ -4,8 +4,8 @@ const httpMocks = require('node-mocks-http')
 const newRestaurant = require('../mock-data/new-restaurant.json');
 
 RestaurantModel.create = jest.fn();
-RestaurantModel.findById = jest.fn();
 RestaurantModel.find = jest.fn();
+RestaurantModel.findById = jest.fn();
 
 let req, res, next;
 
@@ -50,7 +50,6 @@ describe('RestaurantController.getRestaurants', () => {
         RestaurantModel.find.mockReturnValue([newRestaurant]);
         await RestaurantController.getRestaurants(req, res, next);
         expect(res.statusCode).toBe(200);
-        // expect(res._isEndCalled()).toBeTruthy();
         expect(res._getJSONData()).toStrictEqual([newRestaurant]);
     });
 });
