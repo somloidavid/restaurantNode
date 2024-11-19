@@ -22,6 +22,7 @@ const app = express();
 app.use(express.json());
 app.use('/api', restaurantRoutes);
 
-app.listen(8000, () => {
-    console.log(`Server started at ${3000}`);
+const port = 8000;
+app.listen(port, () => {
+    console.log(`Server started at ${port}`);
 });

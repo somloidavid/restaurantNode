@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const restaurantModel = require('../models/restaurant.model');
-const { log } = require('console');
+const RestaurantController = require('../controllers/restaurant.controller');
 
 router.post('/', async (req, res) => {
     const data = new restaurantModel(req.body);
@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
 
 router.get('', async (req, res) => {
     try {
-        const data = await restaurantModel.find();
+        const data = await RestaurantController.getRestaurants();
         res.json(data)
     }
     catch (error) {
@@ -26,7 +26,7 @@ router.get('', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-        const data = await restaurantModel.findById(req.params.id);
+        const data = await RestaurantController.getRestaurantById(req.params.id);
         res.json(data)
     }
     catch (error) {
