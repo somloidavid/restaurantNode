@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
 
 router.get('', async (req, res) => {
     try {
-        const data = await RestaurantController.getRestaurants();
+        const data = await RestaurantController.getRestaurants(req, res);
         res.json(data)
     }
     catch (error) {
@@ -26,7 +26,7 @@ router.get('', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-        const data = await RestaurantController.getRestaurantById(req.params.id);
+        const data = await RestaurantController.getRestaurantById(req, res);
         res.json(data)
     }
     catch (error) {
@@ -36,12 +36,7 @@ router.get('/:id', async (req, res) => {
 
 router.patch('/:id', async (req, res) => {
     try {
-        const id = req.params.id;
-        const updatedData = req.body;
-        const options = { new: true };
-        const result = await restaurantModel.findByIdAndUpdate(
-            id, updatedData, options
-        )
+        const result = await RestaurantController.updateRestaurant(req, res);
         res.send(result)
     }
     catch (error) {
@@ -51,8 +46,7 @@ router.patch('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
     try {
-        const id = req.params.id;
-        const data = await restaurantModel.findByIdAndDelete(id)
+        await RestaurantController.deleteRestaurant(req, res);
         res.send(`Document with ${data.name} has been deleted..`)
     }
     catch (error) {
