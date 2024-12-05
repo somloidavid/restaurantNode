@@ -22,7 +22,13 @@ const app = express();
 app.use(express.json());
 app.use('/api', restaurantRoutes);
 
-const port = 8000;
-app.listen(port, () => {
-    console.log(`Server started at ${port}`);
-});
+
+const PORT = process.env.PORT;
+
+if (process.env.NODE_ENV !== 'test') {
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+    });
+}
+
+module.exports = app;

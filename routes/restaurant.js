@@ -46,12 +46,12 @@ router.patch('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
     try {
-        await RestaurantController.deleteRestaurant(req, res);
-        res.send(`Document with ${data.name} has been deleted..`)
+        const restaurant = await RestaurantController.deleteRestaurant(req, res);
+        if (!restaurant) {
+            return res.status(404).json({ message: 'Restaurant not found' });
+        }
     }
-    catch (error) {
-        res.status(400).json({ message: error.message })
-    }
-})
+    catch{}
+});
 
 module.exports = router;
